@@ -1,28 +1,37 @@
-=== Version Info | Show WP, PHP, MySQL & Web Server Versions in Admin Footer ===
-Contributors: gauchoplugins, alpipego
+=== Version Info | Show WP, PHP, MySQL & Web Server Versions in Admin Dashboard ===
+Contributors: gauchoplugins
 Tags: admin, version, php, mysql, server
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Show current WordPress, PHP, Web Server and MySQL versions in admin footer
+Easily display the current WP, PHP, Web Server, and MySQL versions in the WP-Admin Footer, Admin bar, or as a widget in screen options. 
 
 == Description ==
 
-This plugin displays the current WordPress version number along with the following environment in the admin footer:
+The Version Info plugin helps you track essential version information for your WordPress install by displaying key system details such as WordPress version, PHP version, Web Server type, and MySQL version. This can be displayed in three areas:
 
-* Current WordPress version info, if there is an update available it displays the current and latest versions side by side
-* PHP version
-* Web Server used
-* MySQL version
+* **Admin footer** - Displays WordPress, PHP, MySQL, and Web Server versions in the footer for quick reference.
+* **WP-Admin Bar** - Optionally add version details to the top WP-Admin bar for instant visibility while navigating the admin area.
+* **Dashboard Widget** - Activate the dashboard widget via the Screen Options to quickly view your site’s version information.
 
-= What's the reason for building this Plugin =
-I always disliked the fact that WordPress does not display the current version number in the footer whenever there is a new release.
+Key features of this plugin include:
 
-If you are a plugin developer and a user experiences a problem, they could install this plugin and send you a screenshot of their admin footer (or copy the text of course) to inform you about the cornerstones of their setup.
+* Shows the current WordPress version. If a new version is available, it will display the current version alongside the latest available version in the footer, with a link to update.
+* Displays the PHP version running on your server, making it easy to verify if your site meets compatibility requirements for plugins and themes.
+* Shows the Web Server type and version, whether you're using Apache, Nginx, or another server setup.
+* Includes the MySQL version to help you track the database version your WordPress site uses.
+
+= Why use this Plugin? =
+
+Ever wondered which version of WordPress or PHP your site is running? This plugin ensures you have that critical information at a glance.
+
+Whether you're a site administrator, developer, or someone managing a WordPress site, knowing your software versions is crucial for troubleshooting, compatibility checks, and ensuring optimal performance.
+
+For developers, this plugin is an invaluable tool. When clients report an issue, they can quickly send you the version details of their setup by simply sharing a screenshot of their admin footer or copying the information. This makes diagnosing issues easier, as you’ll immediately know which version of WordPress, PHP, and MySQL they are using, along with the web server information.
 
 == Screenshots ==
 
@@ -49,7 +58,9 @@ If you are a plugin developer and a user experiences a problem, they could insta
 
 == Changelog ==
 
-= 1.3.1 = 
+= 1.3.2 = 
 
-* Updated compatibility details. 
-* Changed to GPL. 
+* Added settings for displaying the version info on WP-Admin bar and dashboard widget.
+* Added namespace, sanitization, and other security improvements.
+* Prepared plugin strings for translation.
+* Translations added for 13 most common Wordpress languages.
