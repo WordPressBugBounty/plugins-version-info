@@ -1,9 +1,9 @@
 === Version Info | Show WP, PHP, MySQL & Web Server Versions in Admin Dashboard ===
 Contributors: gauchoplugins
 Tags: admin, version, php, mysql, server
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -33,12 +33,29 @@ Whether you're a site administrator, developer, or someone managing a WordPress 
 
 For developers, this plugin is an invaluable tool. When clients report an issue, they can quickly send you the version details of their setup by simply sharing a screenshot of their admin footer or copying the information. This makes diagnosing issues easier, as you’ll immediately know which version of WordPress, PHP, and MySQL they are using, along with the web server information.
 
+## GAUCHO PLUGINS PORTFOLIO
+
+**[Payment Page](https://wordpress.org/plugins/payment-page/)**: Start accepting payments in a beautiful payment form in less than 60 seconds
+
+**[Split Pay Plugin](https://wordpress.org/plugins/bsd-woo-stripe-connect-split-pay/)**: Split WooCommerce payments across multiple connected Stripe accounts. 
+
+**[Login for Stripe Customer Portal](https://wordpress.org/plugins/login-stripe-customer-portal/)**: Create an Account login area for your Stripe customers. 
+
+**[Gyta Buyback](https://wordpress.org/plugins/gyta-buyback/)**: Create a trade-in / buyback business using WooCommerce. 
+
+**[Version Info](https://wordpress.org/plugins/version-info/)**: Show WP, PHP, MySQL & Web Server Versions in the WP-Admin Dashboard.
+
+**[China Payments Plugin](https://wordpress.org/plugins/wp-stripe-global-payments/)**: Accept WeChat Pay and Alipay payments from Chinese customers.   
+
+**[Blocked in China](https://wordpress.org/plugins/blocked-in-china/)**: Check if your website is available in the Chinese mainland.  
+
+**Speed in China**: Check your website’s speed in the Chinese mainland - coming soon!
+
 == Screenshots ==
 
-1. Default admin footer showing you the current (latest) Wordpress version
-2. After activation you will get a lot more info in your admin footer
-3. Default admin footer when you are not running the latest version of WordPress
-4. If this plugin is active, you will see your currently installed version along the update info (and the additional info this plugin provides)
+1. Plugin Settings Page & Footer Version Info
+2. Dashboard Widget Version Info
+3. WP-Admin Bar Version Info
 
 == Frequently Asked Questions ==
 
@@ -58,9 +75,6 @@ For developers, this plugin is an invaluable tool. When clients report an issue,
 
 == Changelog ==
 
-= 1.3.2 = 
+= 1.3.3 = 
 
-* Added settings for displaying the version info on WP-Admin bar and dashboard widget.
-* Added namespace, sanitization, and other security improvements.
-* Prepared plugin strings for translation.
-* Translations added for 13 most common Wordpress languages.
+* Verified WordPress 6.9 compatibility. 
