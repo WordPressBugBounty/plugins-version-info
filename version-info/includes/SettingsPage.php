@@ -1,20 +1,20 @@
 <?php
 
-declare(strict_types=1);
 
 namespace GauchoPlugins\VersionInfo;
 
 class SettingsPage {
 
-    private const PRO_TABS    = [ 'system_resources', 'environment', 'version_history', 'health_advisor', 'system_export' ];
-    private const AGENCY_TABS = [ 'white_label', 'access_control', 'email_alerts', 'error_log' ];
+    // Note: `private const` requires PHP 7.1+; plain `const` keeps these readable on PHP 5.6.
+    const PRO_TABS    = [ 'system_resources', 'environment', 'version_history', 'health_advisor', 'system_export' ];
+    const AGENCY_TABS = [ 'white_label', 'access_control', 'email_alerts', 'error_log' ];
 
-    public function register(): void {
+    public function register() {
         add_action( 'admin_menu', [ $this, 'add_page' ] );
         add_action( 'admin_init', [ $this, 'register_settings' ] );
     }
 
-    public function add_page(): void {
+    public function add_page() {
         add_options_page(
             __( 'Version Info Settings', 'version-info' ),
             __( 'Version Info', 'version-info' ),
@@ -24,7 +24,7 @@ class SettingsPage {
         );
     }
 
-    public function register_settings(): void {
+    public function register_settings() {
         // General tab — own group so saving doesn't affect other tabs.
         register_setting( 'version_info_general_group', 'version_info_show_footer', [
             'type'              => 'boolean',
@@ -96,7 +96,10 @@ class SettingsPage {
         ] );
     }
 
-    public function sanitize_bool( mixed $input ): bool {
+    /**
+     * @param mixed $input
+     */
+    public function sanitize_bool( $input ) {
         return filter_var( $input, FILTER_VALIDATE_BOOLEAN );
     }
 
@@ -104,7 +107,7 @@ class SettingsPage {
      * @param mixed $input
      * @return string[]
      */
-    public function sanitize_roles( mixed $input ): array {
+    public function sanitize_roles( $input ) {
         if ( ! is_array( $input ) ) {
             return [ 'administrator' ];
         }
@@ -115,7 +118,7 @@ class SettingsPage {
      * @param mixed $input
      * @return string[]
      */
-    public function sanitize_alert_types( mixed $input ): array {
+    public function sanitize_alert_types( $input ) {
         if ( ! is_array( $input ) ) {
             return [ 'wordpress', 'php', 'mysql' ];
         }
@@ -123,7 +126,7 @@ class SettingsPage {
         return array_values( array_intersect( array_map( 'sanitize_key', $input ), $valid ) );
     }
 
-    public function render(): void {
+    public function render() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
         }
@@ -182,7 +185,7 @@ class SettingsPage {
         echo '</div>';
     }
 
-    private function render_tab( string $tab_id, bool $can_use_premium, bool $is_agency ): void {
+    private function render_tab( $tab_id, $can_use_premium, $is_agency ) {
         if ( in_array( $tab_id, self::AGENCY_TABS, true ) && ! $is_agency ) {
             $this->render_agency_tab_placeholder( $tab_id );
             return;
@@ -203,7 +206,7 @@ class SettingsPage {
         }
     }
 
-    private function render_general_tab(): void {
+    private function render_general_tab() {
         ?>
         <form method="post" action="options.php">
             <?php settings_fields( 'version_info_general_group' ); ?>
@@ -235,7 +238,7 @@ class SettingsPage {
         <?php
     }
 
-    private function render_pro_tab_placeholder( string $tab_id ): void {
+    private function render_pro_tab_placeholder( $tab_id ) {
         $previews = [
             'system_resources' => [
                 'title'       => __( 'System Resources', 'version-info' ),
@@ -285,7 +288,7 @@ class SettingsPage {
             ],
         ];
 
-        $preview = $previews[ $tab_id ] ?? null;
+        $preview = isset( $previews[ $tab_id ] ) ? $previews[ $tab_id ] : null;
         if ( ! $preview ) {
             return;
         }
@@ -293,7 +296,7 @@ class SettingsPage {
         $this->render_locked_placeholder( $preview, 'pro' );
     }
 
-    private function render_agency_tab_placeholder( string $tab_id ): void {
+    private function render_agency_tab_placeholder( $tab_id ) {
         $previews = [
             'white_label' => [
                 'title'       => __( 'White Label', 'version-info' ),
@@ -333,7 +336,7 @@ class SettingsPage {
             ],
         ];
 
-        $preview = $previews[ $tab_id ] ?? null;
+        $preview = isset( $previews[ $tab_id ] ) ? $previews[ $tab_id ] : null;
         if ( ! $preview ) {
             return;
         }
@@ -344,7 +347,7 @@ class SettingsPage {
     /**
      * @param array{title: string, description: string, features: string[]} $preview
      */
-    private function render_locked_placeholder( array $preview, string $tier ): void {
+    private function render_locked_placeholder( array $preview, $tier ) {
         if ( 'agency' === $tier ) {
             $label   = __( 'This is an Agency feature.', 'version-info' );
             $message = __( 'Upgrade to the Agency plan to unlock this feature.', 'version-info' );

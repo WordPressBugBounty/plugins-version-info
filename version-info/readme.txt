@@ -1,24 +1,24 @@
 === Version Info - Server Health Monitor, PHP & MySQL Version Display, Environment Indicators ===
-Contributors: gauchoplugins, freemius
+Contributors: gauchoplugins, brandonfire, freemius
 Tags: server info, php version, mysql version, site health, developer tools
-Stable tag: 2.0.0
-Requires at least: 5.5
-Tested up to: 6.9
-Requires PHP: 8.1
+Stable tag: 2.0.1
+Requires at least: 4.7
+Tested up to: 7.0
+Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The #1 technical dashboard for WordPress professionals. Display PHP, MySQL, WP & server versions anywhere in admin. Monitor CPU, RAM, DB size & environment type.
+Display PHP, MySQL, WP & server versions anywhere in admin. Monitor CPU, RAM, DB size & environment type.
 
 == Description ==
 
 = 🛡️ THE ESSENTIAL TECHNICAL HUD FOR EVERY WORDPRESS PROFESSIONAL =
 
-Stop digging through hidden menus or leaving insecure `phpinfo()` files on your server. **[Version Info](https://versioninfoplugin.com "Visit the Version Info website")** is the essential technical dashboard that brings your site's most vital environment data directly into your daily workflow — the admin footer, the admin bar, or a dedicated dashboard widget.
+Stop digging through hidden menus or leaving insecure `phpinfo()` files on your server. **[Version Info](https://versioninfoplugin.com/ "Visit the Version Info website")** is the essential technical dashboard that brings your site's most vital environment data directly into your daily workflow — the admin footer, the admin bar, or a dedicated dashboard widget.
 
 Whether you're a freelancer managing dozens of client sites, a developer debugging a complex plugin conflict, or an agency maintaining a portfolio of high-value properties, having instant access to your **PHP version**, **MySQL version**, **WordPress version**, and **web server type** is a mission-critical utility.
 
-**Version Info** has been trusted by WordPress professionals since 2015 and is now supercharged with a complete PRO + Agency suite for serious site monitoring. Learn more at **[versioninfoplugin.com](https://versioninfoplugin.com "Version Info official website")**.
+**Version Info** has been trusted by WordPress professionals since 2015 and is now supercharged with a complete PRO + Agency suite for serious site monitoring. Learn more at **[versioninfoplugin.com](https://versioninfoplugin.com/ "Version Info official website")**.
 
 = ✨ What Makes Version Info Different? =
 
@@ -27,7 +27,7 @@ Most server info plugins show you a wall of data you don't need. Version Info is
 * **Zero Configuration** — Install, activate, done. Versions appear in your footer immediately.
 * **Surgical Precision** — Only shows WP, PHP, MySQL, and Server versions. No fluff.
 * **Performance First** — Uses native WordPress APIs. Literally zero impact on page load.
-* **Developer Hooks** — Every data point is filterable for custom integrations. See the [developer docs](https://docs.versioninfoplugin.com/developer-hooks/ "Version Info developer documentation").
+* **Developer Hooks** — Every data point is filterable for custom integrations. See the [developer docs](https://docs.versioninfoplugin.com/advanced-configuration-hooks-and-filters "Version Info developer documentation").
 
 = 🚀 Core Features (100% Free, Forever) =
 
@@ -44,7 +44,7 @@ These features will always be free. No bait-and-switch.
 
 Unlock real-time performance monitoring, environment safety, and proactive health checks. Built for developers who take their stack seriously.
 
-**[Upgrade to PRO →](https://versioninfoplugin.com/pricing/ "Version Info PRO pricing")** Starting at $19/year.
+**[Upgrade to PRO →](https://versioninfoplugin.com/pricing "Version Info PRO pricing")** Starting at $19/year.
 
 * 📈 **Real-Time CPU & RAM Monitoring** — See your server's pulse, live. Visual percentage bars that auto-refresh every 60 seconds via the WordPress Heartbeat API. Cross-platform: uses `sys_getloadavg()` on Linux, COM objects on Windows, and `/proc/meminfo` for system memory. Fully cached with Transients to prevent server strain.
 
@@ -58,13 +58,13 @@ Unlock real-time performance monitoring, environment safety, and proactive healt
 
 * 📤 **JSON System Info Export** — One-click download of your entire technical stack as a structured JSON file. Includes WordPress config, PHP version + all extensions, database details, active theme, all active plugins with versions, server info, and more. Ideal for attaching to support tickets, sharing with hosting providers, or archiving before migrations.
 
-[See the full PRO feature documentation →](https://docs.versioninfoplugin.com/pro-features/ "Version Info PRO documentation")
+[See the full PRO feature documentation →](https://docs.versioninfoplugin.com/pro-features "Version Info PRO documentation")
 
 = 🏛️ Agency Plan — The Command Center for Client Portfolios =
 
 Everything in PRO, plus enterprise-grade tools for agencies, freelancers, and hosting companies managing multiple sites.
 
-**[Upgrade to Agency →](https://versioninfoplugin.com/pricing/ "Version Info Agency pricing")** Starting at $49/year.
+**[Upgrade to Agency →](https://versioninfoplugin.com/pricing "Version Info Agency pricing")** Starting at $49/year.
 
 * 🏷️ **Full Agency White-Labeling** — Make it *your* plugin. Replace "Version Info" and "Gaucho Plugins" with your agency's name everywhere: the plugin list, dashboard widgets, admin bar, footer, and settings page. Hide Freemius-generated Account, Contact, and Support submenus. Uses the `all_plugins` filter for seamless Plugins list rebranding.
 
@@ -76,7 +76,7 @@ Everything in PRO, plus enterprise-grade tools for agencies, freelancers, and ho
 
 * 🔍 **PHP Error Log Dashboard** — Debug without FTP or SSH. View the last 100 lines of your `debug.log` (or custom `error_log` path) directly inside WordPress. Uses efficient `fseek()` tail reading — never loads the full log into memory. Sensitive file paths are automatically masked with `[ABSPATH]`. Download the full log as a ZIP file for offline analysis.
 
-[See the full Agency feature documentation →](https://docs.versioninfoplugin.com/agency-features/ "Version Info Agency documentation")
+[See the full Agency feature documentation →](https://docs.versioninfoplugin.com/agency-features "Version Info Agency documentation")
 
 = 🎯 Real-World Use Cases =
 
@@ -105,8 +105,8 @@ Version Info is built with performance as the #1 priority:
 * **Transients API** — All resource-heavy metrics (CPU, RAM, DB size) are cached. CPU/RAM uses 60-second TTL; database size uses 12-hour TTL.
 * **Heartbeat API** — Live resource updates use the native WordPress Heartbeat, ensuring data refreshes only when the admin page is active.
 * **Provider Pattern** — A `ProviderInterface` abstracts all detection logic, making it trivial to add custom providers for AWS, Kinsta, or any host-specific API.
-* **Hook-First Architecture** — Every data point fires a WordPress filter (`version_info_wp_version`, `version_info_php_version`, etc.) and every render point fires an action. Extend anything without editing core files. See the [hooks reference](https://docs.versioninfoplugin.com/hooks-reference/ "Version Info hooks reference").
-* **Strict Typing** — Every file uses `declare(strict_types=1)` and PHP 8.1+ typed properties for maximum reliability.
+* **Hook-First Architecture** — Every data point fires a WordPress filter (`version_info_wp_version`, `version_info_php_version`, etc.) and every render point fires an action. Extend anything without editing core files. See the [hooks reference](https://docs.versioninfoplugin.com/advanced-configuration-hooks-and-filters "Version Info hooks reference").
+* **Broad Compatibility** — The codebase deliberately avoids language features that would lock out legacy hosts, so the plugin still installs on PHP 5.6+ and WordPress 4.7+ (which is, after all, who this plugin is built for). Modern PHP is auto-detected and used where available.
 * **WordPress Coding Standards** — Follows WPCS, uses proper escaping, nonce verification, capability checks, and prepared SQL queries throughout.
 
 = 🌍 Works With Your Stack =
@@ -131,10 +131,10 @@ Version Info auto-detects and works seamlessly with:
 
 = 🔗 Resources & Links =
 
-* **[Version Info Website](https://versioninfoplugin.com "Visit the Version Info website")**
-* **[Documentation & Guides](https://docs.versioninfoplugin.com "Version Info documentation")**
-* **[PRO & Agency Pricing](https://versioninfoplugin.com/pricing/ "Version Info pricing")**
-* **[Developer Hooks Reference](https://docs.versioninfoplugin.com/hooks-reference/ "Version Info hooks reference")**
+* **[Version Info Website](https://versioninfoplugin.com/ "Visit the Version Info website")**
+* **[Documentation & Guides](https://docs.versioninfoplugin.com/ "Version Info documentation")**
+* **[PRO & Agency Pricing](https://versioninfoplugin.com/pricing "Version Info pricing")**
+* **[Developer Hooks Reference](https://docs.versioninfoplugin.com/advanced-configuration-hooks-and-filters "Version Info hooks reference")**
 * **[Support Forum](https://wordpress.org/support/plugin/version-info/ "Version Info support")**
 * **[Translate Version Info](https://translate.wordpress.org/projects/wp-plugins/version-info/ "Translate on WordPress.org")**
 * **[Gaucho Plugins Portfolio](https://gauchoplugins.com "Gaucho Plugins")**
@@ -143,9 +143,11 @@ Version Info auto-detects and works seamlessly with:
 
 = Minimum Requirements =
 
-* WordPress 5.5 or greater
-* PHP version 8.1 or greater
-* MySQL version 5.7 or greater
+* WordPress 4.7 or greater
+* PHP version 5.6 or greater
+* MySQL version 5.5 or greater
+
+Version Info is intentionally backwards-compatible. Because the plugin's whole purpose is to surface PHP / WordPress / server-version information, the people who need it most are typically running older environments. The minimum-supported floor is set as low as the underlying code allows.
 
 = Automatic Installation =
 
@@ -167,17 +169,17 @@ Navigate to **Settings > Version Info** to:
 * Access PRO tabs for System Resources, Environment, Version History, Health Advisor, and System Export
 * Access Agency tabs for White Label, Access Control, Email Alerts, and Error Log
 
-For detailed setup guides, visit the **[Version Info documentation](https://docs.versioninfoplugin.com "Version Info documentation")**.
+For detailed setup guides, visit the **[Version Info documentation](https://docs.versioninfoplugin.com/ "Version Info documentation")**.
 
-= Upgrading to 2.0 =
+= Upgrading to 2.0.1 =
 
-Version 2.0 is a major architecture upgrade. The minimum PHP requirement has been raised to **8.1**. Please verify your server meets this requirement before updating. Always backup your site before major updates. See the [upgrade guide](https://docs.versioninfoplugin.com/upgrading-to-2-0/ "Version Info 2.0 upgrade guide") for details.
+Version 2.0.1 restores backwards compatibility with PHP 5.6+ and WordPress 4.7+. The previous 2.0.0 release required PHP 8.1+, which was inappropriate for a diagnostic plugin whose users are most often on older environments. No functionality was removed — only the language-level features were refactored. Always backup your site before updating. See the [upgrade guide](https://docs.versioninfoplugin.com/getting-started-installation-and-setup "Version Info 2.0 upgrade guide") for details.
 
 == Frequently Asked Questions ==
 
 = Is this plugin lightweight? Will it slow down my site? =
 
-Absolutely not. The free version uses only native WordPress functions (`get_bloginfo()`, `phpversion()`, `$wpdb->get_var()`) and has near-zero performance impact. The PRO version uses the WordPress Transients API and Heartbeat API to ensure monitoring never blocks page loads or strains your server. Read more about the [performance architecture](https://docs.versioninfoplugin.com/performance/ "Version Info performance documentation").
+Absolutely not. The free version uses only native WordPress functions (`get_bloginfo()`, `phpversion()`, `$wpdb->get_var()`) and has near-zero performance impact. The PRO version uses the WordPress Transients API and Heartbeat API to ensure monitoring never blocks page loads or strains your server. Read more about the [performance architecture](https://docs.versioninfoplugin.com/advanced-configuration-known-plugin-conflicts "Version Info performance documentation").
 
 = Does it work on WordPress Multisite? =
 
@@ -185,7 +187,7 @@ Yes! The free version works on a per-site basis. The Agency plan adds a dedicate
 
 = Which hosting environments can the Environment Indicator detect? =
 
-It auto-detects: `WP_ENVIRONMENT_TYPE` (WordPress 5.5+ core), `WP_ENV` (Bedrock/Trellis), `KINSTA_ENV_TYPE`, `WPE_ENVIRONMENT` and `IS_WPE_SNAPSHOT` (WP Engine), `PANTHEON_ENVIRONMENT`, `FLYWHEEL_CONFIG_DIR`, and falls back to "Production" for unrecognized hosts. See the [full compatibility list](https://docs.versioninfoplugin.com/environment-detection/ "Version Info environment detection documentation").
+It auto-detects: `WP_ENVIRONMENT_TYPE` (WordPress 5.5+ core), `WP_ENV` (Bedrock/Trellis), `KINSTA_ENV_TYPE`, `WPE_ENVIRONMENT` and `IS_WPE_SNAPSHOT` (WP Engine), `PANTHEON_ENVIRONMENT`, `FLYWHEEL_CONFIG_DIR`, and falls back to "Production" for unrecognized hosts. See the [full compatibility list](https://docs.versioninfoplugin.com/pro-features-environment-indicators "Version Info environment detection documentation").
 
 = Can I use this to debug PHP errors remotely? =
 
@@ -209,15 +211,15 @@ The Agency plan monitors for version changes on every `admin_init` and via `upgr
 
 = Is this plugin developer-friendly? =
 
-Extremely. Every data point fires a WordPress filter (e.g., `version_info_wp_version`, `version_info_mysql_version`). Every render point fires an action. The architecture uses a `ProviderInterface` so you can register custom data providers. All files use `declare(strict_types=1)` and PHP 8.1+ typed properties. See the [developer documentation](https://docs.versioninfoplugin.com/developer-hooks/ "Version Info developer docs") for the complete hooks reference and provider API.
+Extremely. Every data point fires a WordPress filter (e.g., `version_info_wp_version`, `version_info_mysql_version`). Every render point fires an action. The architecture uses a `ProviderInterface` so you can register custom data providers. The codebase deliberately avoids language features that would lock out legacy hosts, so the plugin still installs on PHP 5.6+. See the [developer documentation](https://docs.versioninfoplugin.com/advanced-configuration-hooks-and-filters "Version Info developer docs") for the complete hooks reference and provider API.
 
 = Where can I find documentation? =
 
-Complete documentation, setup guides, and developer references are available at **[docs.versioninfoplugin.com](https://docs.versioninfoplugin.com "Version Info documentation")**.
+Complete documentation, setup guides, and developer references are available at **[docs.versioninfoplugin.com](https://docs.versioninfoplugin.com/ "Version Info documentation")**.
 
 = Where can I get support? =
 
-Free users can use the [WordPress.org support forum](https://wordpress.org/support/plugin/version-info/ "Version Info support forum"). PRO and Agency customers receive [priority support](https://versioninfoplugin.com/support/ "Version Info priority support").
+Free users can use the [WordPress.org support forum](https://wordpress.org/support/plugin/version-info/ "Version Info support forum"). PRO and Agency customers receive [priority support](https://versioninfoplugin.com/ "Version Info priority support").
 
 == Screenshots ==
 
@@ -233,6 +235,16 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 10. **System Export** — One-click JSON download with a full preview table of your technical stack (PRO).
 
 == Changelog ==
+
+= 2.0.1 (2026-05-17) =
+
+* **Backwards compatibility:** lowered minimum PHP to **5.6** and minimum WordPress to **4.7**. The previous 2.0.0 minimums (PHP 8.1 / WP 5.5) were inappropriate for a plugin whose audience is by definition running older environments.
+* Refactored the codebase to remove PHP 7.0+/7.1+/7.4+/8.0+/8.1+ syntax: `declare(strict_types=1)`, scalar parameter typehints, return type declarations, null coalescing `??`, `Throwable`, typed properties, arrow functions, `match` expressions, `str_starts_with()`, `mixed` parameter type, nullable return types (`?array`, `?string`), `void` return declarations, `private const`, and `array_is_list()`.
+* No functionality removed — every PRO/Agency feature still works exactly as in 2.0.0.
+* Health Advisor's "PHP minimum version" check now flags pre-7.4 as a recommendation (since the wider ecosystem considers 7.4 the active-support floor), rather than claiming the plugin itself requires 8.1.
+* Added EOL data for PHP 5.6, 7.0, 7.1, 7.2, 7.3 and MySQL 5.5 so legacy hosts get accurate advice from Health Advisor.
+* Feature-detect `wp_date()` (WP 5.3+) and `wp_timezone_string()` (WP 5.3+) so the plugin degrades gracefully on WP 4.7+.
+* Confirmed compatibility with WordPress 7.0.
 
 = 2.0.0 =
 
@@ -278,6 +290,9 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 Plugin transferred to new owner, @gauchoplugins.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Backwards-compatibility release. Minimum PHP lowered from 8.1 to **5.6**; minimum WordPress lowered from 5.5 to **4.7**. No features removed — Version Info is a diagnostic plugin, so it now actually installs on the legacy environments it was built to diagnose. Safe upgrade for anyone on 2.0.0.
 
 = 2.0.0 =
 Major upgrade! Requires PHP 8.1+. Adds PRO features (CPU/RAM monitoring, DB tracking, environment indicators, health advisor, system export) and Agency features (white-labeling, role controls, network dashboard, email alerts, error log viewer). Backup before updating.

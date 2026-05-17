@@ -1,16 +1,15 @@
 <?php
 
-declare(strict_types=1);
 
 namespace GauchoPlugins\VersionInfo;
 
 class AdminBar {
 
-    public function register(): void {
+    public function register() {
         add_action( 'admin_bar_menu', [ $this, 'add_nodes' ], 100 );
     }
 
-    public function add_nodes( \WP_Admin_Bar $wp_admin_bar ): void {
+    public function add_nodes( \WP_Admin_Bar $wp_admin_bar ) {
         if ( ! Plugin::current_user_can_view() ) {
             return;
         }
@@ -33,14 +32,14 @@ class AdminBar {
         }
     }
 
-    private function get_version_string(): string {
+    private function get_version_string() {
         global $wpdb;
 
         $wp_version      = apply_filters( 'version_info_wp_version', get_bloginfo( 'version' ) );
         $php_version     = apply_filters( 'version_info_php_version', phpversion() );
         $server_software = apply_filters(
             'version_info_server_software',
-            sanitize_text_field( $_SERVER['SERVER_SOFTWARE'] ?? __( 'Unknown', 'version-info' ) )
+            sanitize_text_field( isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : __( 'Unknown', 'version-info' ) )
         );
         $mysql_version   = apply_filters( 'version_info_mysql_version', (string) $wpdb->get_var( 'SELECT VERSION()' ) );
 

@@ -1,16 +1,15 @@
 <?php
 
-declare(strict_types=1);
 
 namespace GauchoPlugins\VersionInfo;
 
 class DashboardWidget {
 
-    public function register(): void {
+    public function register() {
         add_action( 'wp_dashboard_setup', [ $this, 'maybe_add_widget' ] );
     }
 
-    public function maybe_add_widget(): void {
+    public function maybe_add_widget() {
         if ( ! get_option( 'version_info_show_dashboard_widget', false ) || ! Plugin::current_user_can_view() ) {
             return;
         }
@@ -22,7 +21,7 @@ class DashboardWidget {
         );
     }
 
-    public function render(): void {
+    public function render() {
         global $wpdb;
 
         $items = [
@@ -38,7 +37,7 @@ class DashboardWidget {
                 'label' => __( 'Web Server:', 'version-info' ),
                 'value' => apply_filters(
                     'version_info_server_software',
-                    sanitize_text_field( $_SERVER['SERVER_SOFTWARE'] ?? 'Unknown' )
+                    sanitize_text_field( isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : 'Unknown' )
                 ),
             ],
             'mysql' => [

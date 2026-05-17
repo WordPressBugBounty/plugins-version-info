@@ -6,12 +6,13 @@
  * Description: Show current WordPress, PHP, Web Server, and MySQL versions optionally in the admin footer, WP-Admin bar, or dashboard widget.
  * Author: Gaucho Plugins
  * Author URI: https://gauchoplugins.com
- * Version: 2.0.0
+ * Version: 2.0.1
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: version-info
- * Requires PHP: 8.1
- * Requires at least: 5.5
+ * Requires PHP: 5.6
+ * Requires at least: 4.7
+ * Tested up to: 7.0
  *
  */
 if ( !defined( 'ABSPATH' ) ) {
@@ -59,17 +60,18 @@ if ( function_exists( 'vi_fs' ) ) {
         } );
         do_action( 'vi_fs_loaded' );
     }
-    define( 'VERSION_INFO_VERSION', '2.0.0' );
+    define( 'VERSION_INFO_VERSION', '2.0.1' );
     define( 'VERSION_INFO_FILE', __FILE__ );
     define( 'VERSION_INFO_DIR', plugin_dir_path( __FILE__ ) );
-    spl_autoload_register( function ( string $class ) : void {
+    spl_autoload_register( function ( $class ) {
         $prefix = 'GauchoPlugins\\VersionInfo\\';
-        if ( !str_starts_with( $class, $prefix ) ) {
+        // Replaces str_starts_with() (PHP 8.0+) for PHP 5.6 compatibility.
+        if ( 0 !== strpos( $class, $prefix ) ) {
             return;
         }
         $relative = substr( $class, strlen( $prefix ) );
         $pro_prefix = 'Pro\\';
-        if ( str_starts_with( $relative, $pro_prefix ) ) {
+        if ( 0 === strpos( $relative, $pro_prefix ) ) {
             $relative = substr( $relative, strlen( $pro_prefix ) );
             $file = VERSION_INFO_DIR . 'includes/pro/' . str_replace( '\\', '/', $relative ) . '.php';
         } else {

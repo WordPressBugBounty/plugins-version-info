@@ -1,16 +1,18 @@
 <?php
 
-declare (strict_types = 1);
 namespace GauchoPlugins\VersionInfo;
 
 class Plugin {
-    private AdminBar $admin_bar;
+    /** @var AdminBar */
+    private $admin_bar;
 
-    private DashboardWidget $dashboard_widget;
+    /** @var DashboardWidget */
+    private $dashboard_widget;
 
-    private SettingsPage $settings_page;
+    /** @var SettingsPage */
+    private $settings_page;
 
-    public function init() : void {
+    public function init() {
         $this->admin_bar = new AdminBar();
         $this->dashboard_widget = new DashboardWidget();
         $this->settings_page = new SettingsPage();
@@ -22,7 +24,7 @@ class Plugin {
         $this->maybe_init_pro();
     }
 
-    public static function current_user_can_view() : bool {
+    public static function current_user_can_view() {
         $roles = (array) get_option( 'version_info_allowed_roles', ['administrator'] );
         /** @var string[] $roles */
         $roles = apply_filters( 'version_info_allowed_roles', $roles );
@@ -33,18 +35,18 @@ class Plugin {
         return !empty( array_intersect( $roles, (array) $user->roles ) );
     }
 
-    public function load_text_domain() : void {
+    public function load_text_domain() {
         load_plugin_textdomain( 'version-info', false, dirname( plugin_basename( VERSION_INFO_FILE ) ) . '/languages' );
     }
 
-    public function version_in_footer() : string {
+    public function version_in_footer() {
         if ( !get_option( 'version_info_show_footer', true ) || !self::current_user_can_view() ) {
             return '';
         }
         return $this->get_footer_version_details();
     }
 
-    private function get_footer_version_details() : string {
+    private function get_footer_version_details() {
         $wp_version = apply_filters( 'version_info_wp_version', get_bloginfo( 'version' ) );
         $update_message = '';
         $updates = get_core_updates();
@@ -62,7 +64,7 @@ class Plugin {
             }
         }
         global $wpdb;
-        $server_software = apply_filters( 'version_info_server_software', sanitize_text_field( $_SERVER['SERVER_SOFTWARE'] ?? __( 'Unknown', 'version-info' ) ) );
+        $server_software = apply_filters( 'version_info_server_software', sanitize_text_field( ( isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : __( 'Unknown', 'version-info' ) ) ) );
         $mysql_version = apply_filters( 'version_info_mysql_version', (string) $wpdb->get_var( 'SELECT VERSION()' ) );
         $php_version = apply_filters( 'version_info_php_version', phpversion() );
         $details = sprintf(
@@ -77,7 +79,7 @@ class Plugin {
         return apply_filters( 'version_info_footer_details', $details );
     }
 
-    private function maybe_init_pro() : void {
+    private function maybe_init_pro() {
     }
 
 }

@@ -1,19 +1,18 @@
 <?php
 
-declare(strict_types=1);
 
 namespace GauchoPlugins\VersionInfo;
 
 interface ProviderInterface {
 
-    public function getName(): string;
+    public function getName();
 
-    public function getKey(): string;
+    public function getKey();
 
-    public function isAvailable(): bool;
+    public function isAvailable();
 
     /**
      * @return array<string, mixed>
      */
-    public function collect(): array;
+    public function collect();
 }
