@@ -24,6 +24,28 @@ class Plugin {
         $this->maybe_init_pro();
     }
 
+    /**
+     * Build a docs.versioninfoplugin.com link for use inside settings tabs.
+     *
+     * Returns an empty string when the Agency "Hide Doc Links" white-label
+     * setting is enabled, so client-facing dashboards never expose our
+     * documentation domain.
+     *
+     * @param string $slug  Docs page slug, e.g. "pro-features-system-resources".
+     * @param string $label Visible link text.
+     * @return string Anchor HTML or empty string when suppressed.
+     */
+    public static function doc_link( $slug, $label = '' ) {
+        if ( get_option( 'version_info_wl_hide_doc_links', false ) ) {
+            return '';
+        }
+        if ( '' === $label ) {
+            $label = __( 'View documentation', 'version-info' );
+        }
+        $url = 'https://docs.versioninfoplugin.com/' . ltrim( (string) $slug, '/' ) . '/';
+        return sprintf( '<a href="%1$s" target="_blank" rel="noopener" class="vi-doc-link" style="text-decoration:none;">%2$s <span class="dashicons dashicons-external" style="font-size:14px;line-height:inherit;vertical-align:text-bottom;"></span></a>', esc_url( $url ), esc_html( $label ) );
+    }
+
     public static function current_user_can_view() {
         $roles = (array) get_option( 'version_info_allowed_roles', ['administrator'] );
         /** @var string[] $roles */

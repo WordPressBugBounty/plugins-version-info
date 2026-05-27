@@ -46,13 +46,63 @@ class DashboardWidget {
             ],
         ];
 
-        /** @var array<string, array{label: string, value: string}> $items */
+        /** @var array<string, array{label: string, value: string, html?: string}> $items */
         $items = apply_filters( 'version_info_dashboard_widget_items', $items );
+
+        $allowed = [
+            'span'     => [ 'id' => true, 'class' => true, 'style' => true ],
+            'div'      => [ 'id' => true, 'class' => true, 'style' => true ],
+            'strong'   => [ 'style' => true ],
+            'code'     => [],
+            'em'       => [],
+            'br'       => [],
+            'svg'      => [
+                'id'      => true,
+                'class'   => true,
+                'style'   => true,
+                'width'   => true,
+                'height'  => true,
+                'viewbox' => true,
+                'xmlns'   => true,
+            ],
+            'polyline' => [
+                'id'           => true,
+                'class'        => true,
+                'style'        => true,
+                'points'       => true,
+                'stroke'       => true,
+                'stroke-width' => true,
+                'fill'         => true,
+            ],
+        ];
+
+        // WP's safecss_filter_attr strips `display` by default. Allow it for
+        // the duration of this render so our percent-bar markup survives.
+        add_filter( 'safe_style_css', [ $this, 'allow_display_css' ] );
 
         echo '<ul>';
         foreach ( $items as $item ) {
-            echo '<li><strong>' . esc_html( $item['label'] ) . '</strong> ' . esc_html( $item['value'] ) . '</li>';
+            echo '<li><strong>' . esc_html( $item['label'] ) . '</strong> ';
+            if ( isset( $item['html'] ) && '' !== $item['html'] ) {
+                echo wp_kses( $item['html'], $allowed );
+            } else {
+                echo esc_html( $item['value'] );
+            }
+            echo '</li>';
         }
         echo '</ul>';
+
+        remove_filter( 'safe_style_css', [ $this, 'allow_display_css' ] );
+    }
+
+    /**
+     * @param string[] $props
+     * @return string[]
+     */
+    public function allow_display_css( $props ) {
+        if ( ! in_array( 'display', $props, true ) ) {
+            $props[] = 'display';
+        }
+        return $props;
     }
 }

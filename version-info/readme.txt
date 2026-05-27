@@ -1,7 +1,7 @@
 === Version Info - Server Health Monitor, PHP & MySQL Version Display, Environment Indicators ===
 Contributors: gauchoplugins, brandonfire, freemius
 Tags: server info, php version, mysql version, site health, developer tools
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 5.6
@@ -66,7 +66,7 @@ Everything in PRO, plus enterprise-grade tools for agencies, freelancers, and ho
 
 **[Upgrade to Agency →](https://versioninfoplugin.com/pricing "Version Info Agency pricing")** Starting at $49/year.
 
-* 🏷️ **Full Agency White-Labeling** — Make it *your* plugin. Replace "Version Info" and "Gaucho Plugins" with your agency's name everywhere: the plugin list, dashboard widgets, admin bar, footer, and settings page. Hide Freemius-generated Account, Contact, and Support submenus. Uses the `all_plugins` filter for seamless Plugins list rebranding.
+* 🏷️ **Full Agency White-Labeling** — Make it *your* plugin. Replace "Version Info" and "Gaucho Plugins" with your agency's name everywhere: the plugin list, dashboard widgets, admin bar, footer, and settings page. Hide Freemius-generated Account, Contact, and Support submenus. Uses the `all_plugins` filter for seamless Plugins list rebranding. Optionally **lock the White Label tab to a single administrator** so clients can't undo your branding, and **hide all in-plugin links to docs.versioninfoplugin.com** so client dashboards never expose the underlying plugin's docs.
 
 * 👥 **Role-Based Admin Visibility** — Keep it simple for clients. A checkbox matrix lets you control exactly which WordPress user roles can see version information in the admin bar, footer, and dashboard widget. Show everything to administrators, hide everything from editors and shop managers. Default: administrator only.
 
@@ -137,7 +137,28 @@ Version Info auto-detects and works seamlessly with:
 * **[Developer Hooks Reference](https://docs.versioninfoplugin.com/advanced-configuration-hooks-and-filters "Version Info hooks reference")**
 * **[Support Forum](https://wordpress.org/support/plugin/version-info/ "Version Info support")**
 * **[Translate Version Info](https://translate.wordpress.org/projects/wp-plugins/version-info/ "Translate on WordPress.org")**
-* **[Gaucho Plugins Portfolio](https://gauchoplugins.com "Gaucho Plugins")**
+
+= 🆘 Support =
+
+Free support is available in the [WordPress.org support forum](https://wordpress.org/support/plugin/version-info/). PRO and Agency customers can use [priority support through versioninfoplugin.com](https://versioninfoplugin.com/).
+
+## GAUCHO PLUGINS PORTFOLIO
+
+**[Payment Page](https://wordpress.org/plugins/payment-page/)**: Start accepting payments in a beautiful payment form in less than 60 seconds
+
+**[Split Pay Plugin](https://wordpress.org/plugins/bsd-woo-stripe-connect-split-pay/)**: Split WooCommerce payments across multiple connected Stripe accounts. 
+
+**[Login for Stripe Customer Portal](https://wordpress.org/plugins/login-stripe-customer-portal/)**: Create an Account login area for your Stripe customers. 
+
+**[Gyta Buyback](https://wordpress.org/plugins/gyta-buyback/)**: Create a trade-in / buyback business using WooCommerce. 
+
+**[Version Info](https://wordpress.org/plugins/version-info/)**: Show WP, PHP, MySQL & Web Server Versions in the WP-Admin Dashboard.
+
+**[China Payments Plugin](https://wordpress.org/plugins/wp-stripe-global-payments/)**: Accept WeChat Pay and Alipay payments from Chinese customers.   
+
+**[Blocked in China](https://wordpress.org/plugins/blocked-in-china/)**: Check if your website is available in the Chinese mainland.  
+
+**[Speed in China](https://wordpress.org/plugins/speed-in-china/)**: Check your website’s speed in the Chinese mainland.
 
 == Installation ==
 
@@ -183,7 +204,7 @@ Absolutely not. The free version uses only native WordPress functions (`get_blog
 
 = Does it work on WordPress Multisite? =
 
-Yes! The free version works on a per-site basis. The Agency plan adds a dedicated **Network Admin > Settings > Version Info** page that shows WP, PHP, MySQL versions, and database sizes for every site on the network in a single table.
+Yes! The free version works on a per-site basis. PRO adds a dedicated **Network Admin > Settings > Version Info** page that shows WP, PHP, MySQL versions, and database sizes for every site on the network in a single table.
 
 = Which hosting environments can the Environment Indicator detect? =
 
@@ -191,11 +212,11 @@ It auto-detects: `WP_ENVIRONMENT_TYPE` (WordPress 5.5+ core), `WP_ENV` (Bedrock/
 
 = Can I use this to debug PHP errors remotely? =
 
-Yes! The Agency plan includes a **PHP Error Log Dashboard** that reads your `debug.log` file directly inside WordPress — no FTP or SSH access needed. It shows the last 100 lines efficiently and lets you download the full log as a ZIP.
+Yes! PRO includes a **PHP Error Log Dashboard** that reads your `debug.log` file directly inside WordPress — no FTP or SSH access needed. It shows the last 100 lines efficiently and lets you download the full log as a ZIP.
 
 = Is the PRO version compatible with WordPress.org guidelines? =
 
-Yes. The free version hosted on WordPress.org contains zero premium code. All PRO/Agency features are delivered via the Freemius SDK update mechanism and are clearly separated using the `@fs_premium_only` deployment directive.
+Yes. The free version hosted on WordPress.org contains zero premium code. All PRO features are delivered via the Freemius SDK update mechanism and are clearly separated using the `@fs_premium_only` deployment directive.
 
 = How does the Health Advisor work? =
 
@@ -203,7 +224,7 @@ It integrates with the native **WordPress Site Health** screen by hooking into t
 
 = Can my clients see the version information? =
 
-By default, only administrators can see version data. With the Agency plan, you get a **Role-Based Visibility** matrix that lets you choose exactly which roles (Editor, Author, Shop Manager, etc.) can see version info. You can also completely white-label the plugin so clients never know it exists.
+By default, only administrators can see version data. With PRO, you get a **Role-Based Visibility** matrix that lets you choose exactly which roles (Editor, Author, Shop Manager, etc.) can see version info. You can also completely white-label the plugin so clients never know it exists.
 
 = How do email alerts work? =
 
@@ -229,12 +250,27 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 4. **Version History** — Timeline view of every WordPress, PHP, MySQL, plugin, and theme version change with timestamps.
 5. **Health Advisor** — Predictive EOL alerts for PHP and MySQL integrated into the plugin settings and WordPress Site Health.
 6. **Admin Footer** — How version info appears at the bottom of every admin page with optional WP update link.
-7. **Network Dashboard** — Multisite overview showing versions and database sizes for every site (Agency).
-8. **White Label** — Rebrand the plugin name, author, and hide Freemius menus for a seamless client experience (Agency).
-9. **Error Log Viewer** — In-dashboard PHP error log with masked paths and ZIP download (Agency).
+7. **Network Dashboard** — Multisite overview showing versions and database sizes for every site (PRO).
+8. **White Label** — Rebrand the plugin name, author, and hide Freemius menus for a seamless client experience (PRO).
+9. **Error Log Viewer** — In-dashboard PHP error log with masked paths and ZIP download (PRO).
 10. **System Export** — One-click JSON download with a full preview table of your technical stack (PRO).
 
 == Changelog ==
+
+= 2.0.2 (2026-05-26) =
+
+* **PRO:** New General-settings toggle **"Show Live System Resources in Dashboard Widget"** enriches the WP admin dashboard widget with the full collected dataset — CPU load with bar + sparkline + load avg + cores, system memory with bar + sparkline + used/total, PHP memory + peak, disk usage with bar, database size with data/index split + table count, environment + detection source, **server location**, server OS + hostname + IP, **server uptime**, plugin/theme/core update availability, cron next-event/overdue, Health Advisor critical/warning/good summary, last detected version change, PHP runtime limits, HTTPS, WP_DEBUG + debug.log size, object-cache backend, WP + PHP timezones. (Driven by direct customer feedback.)
+* **PRO:** CPU and Memory rows now render a compact inline-SVG **sparkline** alongside the percent bar — a rolling 30-sample history (~7.5 min at the dashboard's 15s Heartbeat cadence). Sparkline stroke recolors green/orange/red on the same 70%/90% thresholds as the bar.
+* **PRO:** New **Server Location** row in the widget. Resolution order: 30-day transient cache → configured provider lookup → reverse-DNS fallback → graceful "Unknown". A "Detect now" button on the Server Location tab busts the cache and re-runs the lookup.
+* **PRO:** Server OS, Hostname, Server IP, **Server Port**, **Document Root** (masked through `[ABSPATH]`), **DB Max Connections**, **DB Max Allowed Packet**, and Server Uptime rows. Closes the parity gap with the abandoned `wp-server-stats` plugin (last released 2017) without inheriting its `shell_exec()` dependency.
+* **PRO:** Server Location now offers **four selectable providers** with an enable/disable checkbox: **Version Info Geolocation (anonymous)** (default — our own Cloudflare Worker at `geo.versioninfoplugin.com`, logs nothing, returns city/region/country/postal/timezone/lat-long/ASN/datacenter), **Cloudflare cdn-cgi/trace** (country-only, free, anonymous), **ip-api.com** (legacy), and **MaxMind GeoLite2 City Web Service** (license-key required). See [the docs](https://docs.versioninfoplugin.com/pro-features-server-location/) for trade-offs.
+* **PRO:** System Resources tab gains a collapsible **PHP Modules** list and a one-click **Purge VI Caches** button.
+* **PRO:** CPU, memory, and disk rows in the dashboard widget display compact color-coded percent bars matching the System Resources tab. CPU and memory bars redraw live on every WordPress Heartbeat tick — no page reload required.
+* **PRO:** Aggregate widget extras cached for 5 minutes behind a transient (filterable via `version_info_widget_extras_ttl`) so the widget stays snappy.
+* Settings → General now dynamically hides the "Show Live System Resources in Dashboard Widget" row until the parent "Show Version Info as Dashboard Widget" toggle is enabled — keeps the form uncluttered until the option is meaningful.
+* **Agency:** New **"Lock Tab to Current User"** checkbox on the White Label tab. When enabled the White Label tab is hidden from every other administrator and direct POST writes to white-label options are blocked from non-owners. The lock auto-releases if the owner's account is deleted, and also self-heals on load if the recorded owner ID no longer corresponds to a real user.
+* **Agency:** New **"Hide Doc Links"** checkbox on the White Label tab. When enabled, in-plugin links to `docs.versioninfoplugin.com` are suppressed across every settings tab so client-facing dashboards never expose the underlying plugin's documentation domain.
+* **New:** Inline doc links on every settings tab pointing at the matching `docs.versioninfoplugin.com` page for the feature being configured.
 
 = 2.0.1 (2026-05-17) =
 
@@ -288,7 +324,6 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 = 1.3.0 =
 
 Plugin transferred to new owner, @gauchoplugins.
-
 == Upgrade Notice ==
 
 = 2.0.1 =

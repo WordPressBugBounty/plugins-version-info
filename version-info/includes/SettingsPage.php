@@ -6,7 +6,7 @@ namespace GauchoPlugins\VersionInfo;
 class SettingsPage {
 
     // Note: `private const` requires PHP 7.1+; plain `const` keeps these readable on PHP 5.6.
-    const PRO_TABS    = [ 'system_resources', 'environment', 'version_history', 'health_advisor', 'system_export' ];
+    const PRO_TABS    = [ 'system_resources', 'environment', 'server_location', 'version_history', 'health_advisor', 'system_export' ];
     const AGENCY_TABS = [ 'white_label', 'access_control', 'email_alerts', 'error_log' ];
 
     public function register() {
@@ -41,6 +41,26 @@ class SettingsPage {
             'sanitize_callback' => [ $this, 'sanitize_bool' ],
             'default'           => false,
         ] );
+        register_setting( 'version_info_general_group', 'version_info_widget_show_resources', [
+            'type'              => 'boolean',
+            'sanitize_callback' => [ $this, 'sanitize_bool' ],
+            'default'           => false,
+        ] );
+        register_setting( 'version_info_general_group', 'version_info_location_enabled', [
+            'type'              => 'boolean',
+            'sanitize_callback' => [ $this, 'sanitize_bool' ],
+            'default'           => true,
+        ] );
+        register_setting( 'version_info_general_group', 'version_info_location_provider', [
+            'type'              => 'string',
+            'sanitize_callback' => [ $this, 'sanitize_location_provider' ],
+            'default'           => 'vi_anonymous',
+        ] );
+        register_setting( 'version_info_general_group', 'version_info_location_maxmind_key', [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ] );
 
         // Environment tab — isolated group.
         register_setting( 'version_info_environment_group', 'version_info_show_env_badge', [
@@ -66,6 +86,16 @@ class SettingsPage {
             'default'           => '',
         ] );
         register_setting( 'version_info_white_label_group', 'version_info_wl_hide_branding', [
+            'type'              => 'boolean',
+            'sanitize_callback' => [ $this, 'sanitize_bool' ],
+            'default'           => false,
+        ] );
+        register_setting( 'version_info_white_label_group', 'version_info_wl_lock_owner_id', [
+            'type'              => 'integer',
+            'sanitize_callback' => [ $this, 'sanitize_lock_owner' ],
+            'default'           => 0,
+        ] );
+        register_setting( 'version_info_white_label_group', 'version_info_wl_hide_doc_links', [
             'type'              => 'boolean',
             'sanitize_callback' => [ $this, 'sanitize_bool' ],
             'default'           => false,
@@ -104,6 +134,51 @@ class SettingsPage {
     }
 
     /**
+     * Convert the "lock to me" checkbox state into a user-ID owner.
+     *
+     * Form posts "1" when checked or "0" via the paired hidden field when
+     * unchecked. We map "1" to the current user's ID so the option stores
+     * "who owns the lock". Only the existing owner is allowed to flip the
+     * value — anyone else attempting to edit gets the old value back.
+     *
+     * @param mixed $input
+     * @return int
+     */
+    public function sanitize_lock_owner( $input ) {
+        $current_owner = (int) get_option( 'version_info_wl_lock_owner_id', 0 );
+        $current_user  = (int) get_current_user_id();
+
+        if ( $current_owner > 0 && $current_owner !== $current_user ) {
+            return $current_owner;
+        }
+
+        $checked = ( '1' === (string) $input || 1 === $input || true === $input );
+
+        if ( $checked ) {
+            return $current_user > 0 ? $current_user : 0;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Restrict the location-provider option to the known set.
+     *
+     * @param mixed $input
+     * @return string
+     */
+    public function sanitize_location_provider( $input ) {
+        $valid = [
+            'vi_anonymous',
+            'cloudflare_trace',
+            'ip_api',
+            'maxmind',
+        ];
+        $input = is_string( $input ) ? $input : '';
+        return in_array( $input, $valid, true ) ? $input : 'vi_anonymous';
+    }
+
+    /**
      * @param mixed $input
      * @return string[]
      */
@@ -135,6 +210,7 @@ class SettingsPage {
             'general'          => __( 'General', 'version-info' ),
             'system_resources' => __( 'System Resources', 'version-info' ),
             'environment'      => __( 'Environment', 'version-info' ),
+            'server_location'  => __( 'Server Location', 'version-info' ),
             'version_history'  => __( 'Version History', 'version-info' ),
             'health_advisor'   => __( 'Health Advisor', 'version-info' ),
             'system_export'    => __( 'System Export', 'version-info' ),
@@ -207,6 +283,12 @@ class SettingsPage {
     }
 
     private function render_general_tab() {
+        $can_use_premium = vi_fs()->can_use_premium_code();
+        $widget_enabled  = (bool) get_option( 'version_info_show_dashboard_widget', false );
+        $doc_link        = Plugin::doc_link( 'getting-started-installation-and-setup', __( 'Setup & display-locations docs', 'version-info' ) );
+        if ( '' !== $doc_link ) {
+            echo '<p style="margin-top:12px;">' . $doc_link . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- helper returns safe markup
+        }
         ?>
         <form method="post" action="options.php">
             <?php settings_fields( 'version_info_general_group' ); ?>
@@ -219,10 +301,32 @@ class SettingsPage {
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Show Version Info as Dashboard Widget', 'version-info' ); ?></th>
+                    <th scope="row">
+                        <label for="vi_show_dashboard_widget"><?php esc_html_e( 'Show Version Info as Dashboard Widget', 'version-info' ); ?></label>
+                    </th>
                     <td>
-                        <input type="checkbox" name="version_info_show_dashboard_widget" value="1"
-                            <?php checked( 1, get_option( 'version_info_show_dashboard_widget', false ) ); ?> />
+                        <input type="checkbox" id="vi_show_dashboard_widget" name="version_info_show_dashboard_widget" value="1"
+                            <?php checked( 1, $widget_enabled ); ?> />
+                    </td>
+                </tr>
+                <tr id="vi_widget_resources_row" style="<?php echo $widget_enabled ? '' : 'display:none;'; ?>">
+                    <th scope="row">
+                        <?php esc_html_e( 'Show Live System Resources in Dashboard Widget', 'version-info' ); ?>
+                        <?php if ( ! $can_use_premium ) : ?>
+                            <span class="dashicons dashicons-lock" style="font-size:14px;line-height:inherit;vertical-align:text-bottom;"></span>
+                        <?php endif; ?>
+                    </th>
+                    <td<?php echo $can_use_premium ? '' : ' style="opacity:0.45;pointer-events:none;"'; ?>>
+                        <input type="checkbox" name="version_info_widget_show_resources" value="1"
+                            <?php checked( 1, get_option( 'version_info_widget_show_resources', false ) ); ?>
+                            <?php disabled( ! $can_use_premium ); ?> />
+                        <p class="description">
+                            <?php esc_html_e( 'Adds live CPU, memory, database, and system details to the Version Info dashboard widget.', 'version-info' ); ?>
+                            <?php if ( ! $can_use_premium ) : ?>
+                                <br><em><?php esc_html_e( 'PRO feature.', 'version-info' ); ?></em>
+                                <a href="<?php echo esc_url( vi_fs()->get_upgrade_url() ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'version-info' ); ?></a>
+                            <?php endif; ?>
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -235,6 +339,16 @@ class SettingsPage {
             </table>
             <?php submit_button(); ?>
         </form>
+        <script>
+        (function () {
+            var parent = document.getElementById( 'vi_show_dashboard_widget' );
+            var row    = document.getElementById( 'vi_widget_resources_row' );
+            if ( ! parent || ! row ) { return; }
+            var sync = function () { row.style.display = parent.checked ? '' : 'none'; };
+            parent.addEventListener( 'change', sync );
+            sync();
+        }());
+        </script>
         <?php
     }
 
@@ -257,6 +371,16 @@ class SettingsPage {
                     __( 'Auto-detects Production, Staging, Development, and Local', 'version-info' ),
                     __( 'Supports WP_ENVIRONMENT_TYPE, Bedrock, Kinsta, WP Engine, and more', 'version-info' ),
                     __( 'Color-coded Admin Bar badge', 'version-info' ),
+                ],
+            ],
+            'server_location' => [
+                'title'       => __( 'Server Location', 'version-info' ),
+                'description' => __( 'Auto-detect where your server lives, with a privacy-first chooser. Anonymous default that logs nothing — or pick your own provider.', 'version-info' ),
+                'features'    => [
+                    __( 'Four selectable providers (Version Info anonymous, Cloudflare trace, ip-api, MaxMind)', 'version-info' ),
+                    __( 'Enable/disable auto-detect entirely with one checkbox', 'version-info' ),
+                    __( '30-day transient cache + one-click Detect Now', 'version-info' ),
+                    __( 'Reverse-DNS fallback when providers are unreachable', 'version-info' ),
                 ],
             ],
             'version_history' => [
@@ -305,6 +429,8 @@ class SettingsPage {
                     __( 'Custom plugin name throughout the dashboard', 'version-info' ),
                     __( 'Custom author name attribution', 'version-info' ),
                     __( 'Hide Freemius account and support menu items', 'version-info' ),
+                    __( 'Hide in-plugin links to docs.versioninfoplugin.com', 'version-info' ),
+                    __( 'Lock the White Label tab to a single administrator', 'version-info' ),
                 ],
             ],
             'access_control' => [
