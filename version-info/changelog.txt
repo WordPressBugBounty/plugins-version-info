@@ -1,3 +1,7 @@
+= 2.0.3 (2026-05-27) =
+
+* Fix: Saving the Server Location tab no longer disables the dashboard widget (or the admin-bar / footer / Show Live System Resources toggles). The location options now live in their own `version_info_location_group` settings group instead of sharing `version_info_general_group` with the General-tab checkboxes — previously, saving on Server Location would clobber the General-tab options to false because unchecked checkboxes aren't in `$_POST`. Reported by Steve Guccione — thanks!
+
 = 2.0.2 (2026-05-26) =
 
 * PRO: New General-settings toggle "Show Live System Resources in Dashboard Widget" enriches the WP admin dashboard widget with the full collected dataset — CPU load with bar + sparkline + load avg + cores, system memory with bar + sparkline + used/total, PHP memory + peak, disk usage with bar, database size with data/index split + table count, environment + detection source, server location, server OS + hostname + IP, server uptime, plugin/theme/core update availability, cron next-event/overdue, Health Advisor critical/warning/good summary, last detected version change, PHP runtime limits (memory_limit / max_execution_time / upload_max_filesize / post_max_size / max_input_vars), HTTPS, WP_DEBUG + debug.log size, object-cache backend, WP + PHP timezones. (Driven by direct customer feedback.)

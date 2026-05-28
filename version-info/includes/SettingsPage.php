@@ -46,17 +46,21 @@ class SettingsPage {
             'sanitize_callback' => [ $this, 'sanitize_bool' ],
             'default'           => false,
         ] );
-        register_setting( 'version_info_general_group', 'version_info_location_enabled', [
+        // Server Location tab — own group so saving doesn't clobber the General-tab
+        // checkboxes (which would otherwise get reset to false on every Server Location
+        // save because unchecked checkboxes aren't in $_POST). Reported by Steve
+        // Guccione 2026-05-27 — saving Server Location was disabling the dashboard widget.
+        register_setting( 'version_info_location_group', 'version_info_location_enabled', [
             'type'              => 'boolean',
             'sanitize_callback' => [ $this, 'sanitize_bool' ],
             'default'           => true,
         ] );
-        register_setting( 'version_info_general_group', 'version_info_location_provider', [
+        register_setting( 'version_info_location_group', 'version_info_location_provider', [
             'type'              => 'string',
             'sanitize_callback' => [ $this, 'sanitize_location_provider' ],
             'default'           => 'vi_anonymous',
         ] );
-        register_setting( 'version_info_general_group', 'version_info_location_maxmind_key', [
+        register_setting( 'version_info_location_group', 'version_info_location_maxmind_key', [
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
             'default'           => '',

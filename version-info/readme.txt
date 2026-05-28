@@ -1,7 +1,7 @@
 === Version Info - Server Health Monitor, PHP & MySQL Version Display, Environment Indicators ===
 Contributors: gauchoplugins, brandonfire, freemius
 Tags: server info, php version, mysql version, site health, developer tools
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 5.6
@@ -256,6 +256,10 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 10. **System Export** — One-click JSON download with a full preview table of your technical stack (PRO).
 
 == Changelog ==
+
+= 2.0.3 (2026-05-27) =
+
+* **Fix:** Saving the Server Location tab no longer disables the dashboard widget (or the admin-bar / footer / Show Live System Resources toggles). The location options now live in their own `version_info_location_group` settings group instead of sharing `version_info_general_group` with the General-tab checkboxes — previously, saving on Server Location would clobber the General-tab options to false because unchecked checkboxes aren't in `$_POST`. Reported by Steve Guccione — thanks!
 
 = 2.0.2 (2026-05-26) =
 
