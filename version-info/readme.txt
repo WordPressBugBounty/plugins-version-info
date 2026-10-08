@@ -1,7 +1,7 @@
 === Version Info - Server Health Monitor, PHP & MySQL Version Display, Environment Indicators ===
 Contributors: gauchoplugins, brandonfire, freemius
 Tags: server info, php version, site health, system resources, server location
-Stable tag: 2.1.0
+Stable tag: 2.1.2
 Requires at least: 4.7
 Tested up to: 7.1
 Requires PHP: 5.6
@@ -334,6 +334,10 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 
 == Changelog ==
 
+= 2.1.2 (2026-10-07) =
+
+* Updated Freemius SDK to the latest version.
+
 = 2.1.0 (2026-08-19) =
 
 * Updated Freemius SDK to 2.13.4.
@@ -420,6 +424,9 @@ Free users can use the [WordPress.org support forum](https://wordpress.org/suppo
 
 Plugin transferred to new owner, @gauchoplugins.
 == Upgrade Notice ==
+
+= 2.1.2 =
+Maintenance release. Updated Freemius SDK to the latest version.
 
 = 2.1.0 =
 Memory usage, server IP, PHP EOL countdown, and Copy-as-Markdown are now FREE. PRO gains SSL certificate expiry alerts and the WP 7.0 PHP support matrix; Email Alerts move from Agency to PRO (existing Agency customers keep everything). Safe upgrade; PHP 5.6+/WP 4.7+ unchanged.

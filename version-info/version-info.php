@@ -6,7 +6,7 @@
  * Description: Show current WordPress, PHP, Web Server, and MySQL versions optionally in the admin footer, WP-Admin bar, or dashboard widget.
  * Author: Gaucho Plugins
  * Author URI: https://gauchoplugins.com
- * Version: 2.1.0
+ * Version: 2.1.2
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: version-info
@@ -67,7 +67,7 @@ if ( function_exists( 'vi_fs' ) ) {
         do_action( 'vi_fs_loaded' );
     }
     // Keep in lockstep with the plugin header Version above (was stale at 2.0.1 through 2.0.3).
-    define( 'VERSION_INFO_VERSION', '2.1.0' );
+    define( 'VERSION_INFO_VERSION', '2.1.2' );
     define( 'VERSION_INFO_FILE', __FILE__ );
     define( 'VERSION_INFO_DIR', plugin_dir_path( __FILE__ ) );
     spl_autoload_register( function ( $class_name ) {
